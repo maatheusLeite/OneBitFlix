@@ -8,7 +8,7 @@ export interface Category {
     position: number,
 }
 
-// Atributos de criação
+// Atributos de criação opcionais
 export interface CategoryCreationAttributes extends Optional<Category, 'id'> { }
 // Para tornar o atributo id opcional na criação da Category, sendo assim, o banco conseguirá
 // adiciona-lo de forma automatica após a criação da category
