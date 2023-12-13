@@ -19,9 +19,9 @@ export const episodeResourceFeatures: FeatureType[] = [
             }
         },
         properties: {
-            key: 'videoUrl', // coluna de referencia da url do video salvo, no banco de dados
+            key: 'videoUrl',    // coluna de referencia da url do video salvo, no banco de dados
             file: 'uploadVideo' // input onde vai ser feito o envio do formulário do video no adminjs
-                                // basicamente, está lincando o campo uploadVideo do editProperties acima com a coluna videoUrl do banco de dados
+                                // basicamente, está lincando o campo uploadVideo do editProperties acima com a coluna video_url do banco de dados
         },
         uploadPath: (record, fileName) => `videos/course-${record.get('courseId')}/${fileName}`
     })
