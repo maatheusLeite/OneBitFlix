@@ -3,6 +3,8 @@ import AdminJSExpress from "@adminjs/express"
 import AdminJSSequelize from "@adminjs/sequelize"
 import { sequelize } from "../database"
 import { adminJsResources } from "./resources"
+import { User } from "../models"
+import bcrypt from 'bcrypt'
 
 AdminJS.registerAdapter(AdminJSSequelize)
 
@@ -34,5 +36,26 @@ export const adminJs = new AdminJS({
 })
 
 // Middleware de rotas do admin.js
-export const adminJsRouter = AdminJSExpress.buildRouter(adminJs) // Constroi um router com a instancia do amdin.js criada
+// Constroi um router com a instancia do amdin.js criada e as opções para o mesmo
+export const adminJsRouter = AdminJSExpress.buildAuthenticatedRouter(adminJs, {
+    authenticate: async (email, password) => { // pega o email e senha do formulário utilizado para realizar login
+        const user = await User.findOne({ where: { email: email } })
+
+        if (user && user.role === 'admin') {
+            const matched = await bcrypt.compare(password, user.password)
+
+            if (matched) {  // Caso a autenticação seja valida, retorna o user
+                return user
+            }
+        }
+
+        // Caso a autenticação não seja valida, retorna false
+        return false
+    },
+    cookiePassword: 'senha-de-cookie'
+}, null, {
+    resave: false,
+    saveUninitialized: false
+}) 
+
 
