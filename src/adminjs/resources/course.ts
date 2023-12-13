@@ -4,10 +4,37 @@ import path from "path";
 
 export const courseResourceOptions: ResourceOptions = {
     navigation: 'Catálogo',
-    editProperties: ['name', 'synopsis', 'uploadThumbnail', 'featured', 'categoryId'], // Propriedades editaveis
-    filterProperties: ['name', 'synopsis', 'featured', 'categoryId', 'createdAt', 'updatedAt'], // Propriedades filtraveis
-    listProperties: ['id', 'name', 'featured', 'categoryId'], // Propriedades listaveis
-    showProperties: ['id', 'name', 'synopsis', 'featured', 'thumbnailUrl', 'categoryId', 'createdAt', 'updatedAt'] // Propriedades que podem ser mostradas
+    editProperties: [ // Propriedades editaveis
+      'name', 
+      'synopsis', 
+      'uploadThumbnail', 
+      'featured', 
+      'categoryId'
+    ],
+    filterProperties: [ // Propriedades filtraveis
+      'name', 
+      'synopsis', 
+      'featured', 
+      'categoryId', 
+      'createdAt', 
+      'updatedAt'
+    ],
+    listProperties: [ // Propriedades listaveis
+      'id', 
+      'name', 
+      'featured', 
+      'categoryId'
+    ],
+    showProperties: [ // Propriedades que podem ser mostradas
+      'id', 
+      'name', 
+      'synopsis', 
+      'featured', 
+      'thumbnailUrl', 
+      'categoryId', 
+      'createdAt', 
+      'updatedAt'
+    ] 
 }
 
 export const courseResourceFeatures: FeatureType[] = [
