@@ -1,14 +1,14 @@
 import { DataTypes, Optional, Model } from "sequelize";
 import { sequelize } from "../database";
 
-// Interface para o objeto simples
+// Interface para o objeto simples contendo seus atributos
 export interface Category {
     id: number,
     name: string,
     position: number,
 }
 
-// Atributos de criação opcionais
+// Atributos opcionais
 export interface CategoryCreationAttributes extends Optional<Category, 'id'> { }
 // Para tornar o atributo id opcional na criação da Category, sendo assim, o banco conseguirá
 // adiciona-lo de forma automatica após a criação da category
