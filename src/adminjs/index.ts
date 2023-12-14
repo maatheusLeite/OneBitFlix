@@ -3,7 +3,7 @@ import AdminJSExpress from "@adminjs/express"
 import AdminJSSequelize from "@adminjs/sequelize"
 import { sequelize } from "../database"
 import { adminJsResources } from "./resources"
-import { User } from "../models"
+import { Category, Course, Episode, User } from "../models"
 import bcrypt from 'bcrypt'
 import { locale } from "./locale"
 
@@ -34,7 +34,24 @@ export const adminJs = new AdminJS({
             }
         }
     },
-    locale: locale
+    locale: locale,
+    dashboard: {
+        component: AdminJS.bundle("./components/Dashboard"), // Serve para empacotar junto com a aplicação, o componente inserido
+        handler: async (req, res, context) => { // Pega os dados do dashboard no banco de dados
+            const courses = await Course.count()
+            const episodes = await Episode.count()
+            const categories = await Category.count()
+            const standardUsers = await User.count({ where: { role: 'user' } })
+
+            // Retorna os valores como json para o dashboard
+            res.json({
+                'Cursos': courses,
+                'Episódios': episodes,
+                'Categorias': categories,
+                'Usuários': standardUsers
+            })
+        }
+    }
 })
 
 // Middleware de rotas do admin.js
