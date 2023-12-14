@@ -1,6 +1,7 @@
 import express from "express"
 import { sequelize } from "./database"
 import { adminJs, adminJsRouter } from "./adminjs"
+import { router } from "./routes"
 
 const app = express()
 
@@ -8,6 +9,9 @@ app.use(express.static('public'))
 
 // app.use(caminho, rotas)
 app.use(adminJs.options.rootPath, adminJsRouter)
+
+// usa o router do express
+app.use(router)
 
 const PORT = process.env.PORT || 3000 // Pega a porta do arquivo de variaves de ambiente env, || OU utiliza a porta 3000 caso o arquivo não possua uma variavel especifica para a porta.
 
