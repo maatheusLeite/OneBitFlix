@@ -18,5 +18,22 @@ export const categoryService = {
             perPage: perPage,   // quantidade de objetos retornados por pagina
             total: count        // total de objetos salvos no banco 
         }
+    },
+
+    findByIdWithCourses: async (id: string) => {
+        const categoryWithCourses = await Category.findByPk(id, {
+            attributes: ['id', 'name'], // Atributos retornados no json
+            include: {                  // Inclui uma associação de uma outra tabela
+                association: 'courses',
+                attributes: [           // Atributos retornados no json da associação
+                    'id',
+                    'name',
+                    'synopsis',
+                    ['thumbnail_url', 'thumbnailUrl']   // renomeia a coluna de snake_case para camelCase
+                ]
+            }
+        })
+
+        return categoryWithCourses
     }
 }
