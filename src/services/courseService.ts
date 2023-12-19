@@ -1,3 +1,4 @@
+import { Op } from "sequelize"
 import { Course } from "../models"
 
 export const courseService = {
@@ -52,5 +53,36 @@ export const courseService = {
         })
 
         return courses
+    },
+
+    findByName: async (name: string, page: number, perPage: number) => {
+        const offset = (page - 1) * perPage // Serve como metodo para pular o numero de registros das paginas anteriores
+        
+        // count é a quantidade de todos os objetos salvos no banco e rows é a quantidade de linhas especificas retornadas pelo banco de dados
+        const { count, rows } = await Course.findAndCountAll({ // findAndCountAll ajuda a numerar os objetos em paginações
+            attributes: [   // Atributos retornados no json
+                'id',
+                'name',
+                'synopsis',
+                ['thumbnail_url', 'thumbnailUrl']   // renomeia a coluna de snake_case para camelCase
+            ],
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%` 
+                    // Com o Op importado do sequelize, é possivel fazer querys mais complexas utilizando os operadores do sql
+                    // iLike é o operador LIKE do postgresql, e serve para pesquisar por resultados semelhantes ao termo referido e sem considerar letras maiusculas. 
+                    // %${name}% serve para procurar pelo termo em qualquer posição da string
+                }
+            },
+            limit: perPage, // Limita o tamanho de objetos na query
+            offset: offset  // Pula os registros das paginas anteriores   
+        })
+
+        return {
+            courses: rows,   // array de objetos retornados
+            page: page,         // referencia para pagina atual retornada
+            perPage: perPage,   // quantidade de objetos retornados por pagina
+            total: count        // total de objetos salvos no banco 
+        }
     }
 }
