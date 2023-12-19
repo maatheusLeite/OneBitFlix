@@ -43,5 +43,14 @@ export const courseService = {
         const randomFeaturedCourses = featuredCourses.sort(() => 0.5 - Math.random())   // Randomiza os cursos a serem retornados
 
         return randomFeaturedCourses.slice(0, 3)    // A partir da posição zero do array, retorna 3 cursos randomizados
+    },
+
+    getTopTenNewest: async () => {
+        const courses = await Course.findAll({
+            limit: 10, // Pega apenas 10 cursos do banco de dados
+            order: [['created_at', 'DESC']] // Ordena por created_at, da mas nova para a mais antiga, ou seja, DESCendente
+        })
+
+        return courses
     }
 }

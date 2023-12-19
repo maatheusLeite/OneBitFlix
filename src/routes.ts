@@ -8,6 +8,7 @@ router.get('/categories', categoriesController.index) // rota, metodo index do o
 router.get('/categories/:id', categoriesController.show) // rota, metodo show do objeto categoriesController 
 
 router.get('/courses/featured', coursesController.featured) // rota, metodo featured do objeto courseController 
+router.get('/courses/newest', coursesController.newest) // rota, metodo newest do objeto courseController 
 router.get('/courses/:id', coursesController.show) // rota, metodo show do objeto courseController 
 
 
