@@ -2,6 +2,8 @@ import { DataTypes, Optional, Model } from "sequelize";
 import { sequelize } from "../database";
 import bcrypt from 'bcrypt';
 
+type CheckPasswordCallback = (error?: Error | undefined, isSame?: boolean) => void
+
 // Interface para o objeto simples contendo seus atributos
 export interface User {
     id: number,
@@ -20,7 +22,9 @@ export interface UserCreationAttributes extends Optional<User, 'id'> { }
 // adiciona-lo de forma automatica após a criação da User
 
 // Interface para instancia de fato
-export interface UserInstance extends Model<User, UserCreationAttributes>, User { }
+export interface UserInstance extends Model<User, UserCreationAttributes>, User { 
+    checkPassword: (password: string, callbackFunction: CheckPasswordCallback) => void
+}
 
 // Definição do model
 export const User = sequelize.define<UserInstance, User>('User', {
@@ -73,7 +77,21 @@ export const User = sequelize.define<UserInstance, User>('User', {
             // OU || caso o valor da senha salva anteriormente tenha sido alterado e um novo valor vai ser salvo
             if (user.isNewRecord || user.changed('password')) {
                 user.password = await bcrypt.hash(user.password.toString(), 10) // Criptografa a senha a ser salva
-            }  
+            }
         }
     }
 })
+
+// Criando um metodo com o prototype, o mesmo é adicionado a todas as instancias de User
+User.prototype.checkPassword = function (password: string, callbackFunction: CheckPasswordCallback) {
+    
+    // decodifica a senha do banco de dados para compara-la com a outra
+    bcrypt.compare(password, this.password, (error, isSame) => {
+        if (error) {
+            callbackFunction(error) // senha não foi a mesma
+        }
+        else {
+            callbackFunction(error, isSame)
+        }
+    }) 
+}
