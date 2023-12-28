@@ -5,5 +5,9 @@ const secret = 'chave-do-jwt' // base da decodificação da senha. NÃO DEIXAR E
 export const jwtService = {
     signToken: (payload: string | object | Buffer, expiration: string) => {
         return jwt.sign(payload, secret, { expiresIn: expiration })
+    },
+
+    verifyToken: (token: string, callbackFunction: jwt.VerifyCallback) => {
+        jwt.verify(token, secret, callbackFunction)
     }
 }
