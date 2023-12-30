@@ -26,7 +26,8 @@ router.get('/favorites', ensureAuth, favoritesController.index) // rota, handler
 router.post('/favorites', ensureAuth, favoritesController.save) // rota, handler que garante que a rota está autenticada, metodo save do objeto favoritesController  
 router.delete('/favorites/:id', ensureAuth, favoritesController.delete) // rota, handler que garante que a rota está autenticada, metodo delete do objeto favoritesController  
 
-router.post('/likes', ensureAuth, likesController.save)// rota, handler que garante que a rota está autenticada, metodo save do objeto likesController  
+router.post('/likes', ensureAuth, likesController.save) // rota, handler que garante que a rota está autenticada, metodo save do objeto likesController  
+router.delete('/likes/:id', ensureAuth, likesController.delete) // rota, handler que garante que a rota está autenticada, metodo delete do objeto likesController  
 
 // ROTAS DINAMICAS COMO courses/:id SEMPRE PRECISAM FICAR ABAIXO DAS ROTAS FIXAS COMO courses/featured
 export { router }
