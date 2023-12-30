@@ -2,10 +2,10 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('favorites', {
+    await queryInterface.createTable('likes', {
       user_id: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta
+        primaryKey: true,
         type: Sequelize.DataTypes.INTEGER,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
@@ -13,7 +13,7 @@ module.exports = {
       },
       course_id: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta
+        primaryKey: true,
         type: Sequelize.DataTypes.INTEGER,
         references: { model: 'courses', key: 'id' },
         onUpdate: 'CASCADE',
@@ -31,6 +31,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('favorites')
+    await queryInterface.dropTable('likes')
   }
 };
