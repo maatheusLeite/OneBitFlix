@@ -4,6 +4,7 @@ import { coursesController } from "./controllers/coursesController"
 import { episodesController } from "./controllers/episodesController"
 import { authController } from "./controllers/authController"
 import { ensureAuth, ensureAuthViaQuery } from "./middlewares/auth"
+import { favoritesController } from "./controllers/favoritesController"
 
 const router = express.Router()
 
@@ -19,6 +20,8 @@ router.get('/courses/search', ensureAuth, coursesController.search) // rota, han
 router.get('/courses/:id', ensureAuth, coursesController.show) // rota, metodo show do objeto coursesController 
 
 router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream) // rota, metodo stream do objeto episodesController 
+
+router.post('/favorites', ensureAuth,favoritesController.save) // rota, handler que garante que a rota está autenticada, metodo save do objeto favoritesController  
 
 // ROTAS DINAMICAS COMO courses/:id SEMPRE PRECISAM FICAR ABAIXO DAS ROTAS FIXAS COMO courses/featured
 export { router }
