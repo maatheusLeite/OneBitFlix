@@ -55,9 +55,36 @@ export const courseService = {
         return courses
     },
 
+    getTopTenByLikes: async () => {
+        const results = await Course.sequelize?.query(
+            `SELECT
+                courses.id,
+                courses.name,
+                courses.synopsis,
+                courses.thumbnail_url as thumbnailUrl,
+                COUNT(users.id) AS likes
+            FROM courses
+                LEFT OUTER JOIN likes
+                ON courses.id = likes.course_id
+                INNER JOIN users
+                    ON users.id = likes.user_id
+            GROUP BY courses.id
+            ORDER BY likes DESC
+            LIMIT 10;`
+        )
+
+        if (results) {
+            const [topTen, metadata] = results
+            return topTen
+        }
+        else {
+            return null
+        }
+    },
+
     findByName: async (name: string, page: number, perPage: number) => {
         const offset = (page - 1) * perPage // Serve como metodo para pular o numero de registros das paginas anteriores
-        
+
         // count é a quantidade de todos os objetos salvos no banco e rows é a quantidade de linhas especificas retornadas pelo banco de dados
         const { count, rows } = await Course.findAndCountAll({ // findAndCountAll ajuda a numerar os objetos em paginações
             attributes: [   // Atributos retornados no json
@@ -68,7 +95,7 @@ export const courseService = {
             ],
             where: {
                 name: {
-                    [Op.iLike]: `%${name}%` 
+                    [Op.iLike]: `%${name}%`
                     // Com o Op importado do sequelize, é possivel fazer querys mais complexas utilizando os operadores do sql
                     // iLike é o operador LIKE do postgresql, e serve para pesquisar por resultados semelhantes ao termo referido e sem considerar letras maiusculas. 
                     // %${name}% serve para procurar pelo termo em qualquer posição da string
