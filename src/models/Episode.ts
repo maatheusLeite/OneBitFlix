@@ -1,5 +1,6 @@
 import { DataTypes, Optional, Model } from "sequelize";
 import { sequelize } from "../database";
+import { WatchTimeInstance } from "./WatchTime";
 
 // Interface para o objeto simples contendo seus atributos
 export interface Episode {
@@ -18,7 +19,9 @@ export interface EpisodeCreationAttributes extends Optional<Episode, 'id' | 'vid
 // adiciona-lo de forma automatica após a criação da Episode
 
 // Interface para instancia de fato
-export interface EpisodeInstance extends Model<Episode, EpisodeCreationAttributes>, Episode { }
+export interface EpisodeInstance extends Model<Episode, EpisodeCreationAttributes>, Episode { 
+    watchTime?: WatchTimeInstance
+}
 
 // Definição do model
 export const Episode = sequelize.define<EpisodeInstance, Episode>('Episode', {

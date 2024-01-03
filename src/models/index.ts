@@ -14,7 +14,7 @@ Course.belongsToMany(User, { through: Favorite }) // Associação muitos para mu
 Course.belongsToMany(User, { through: Like }) // Associação muitos para muitos THROUGH 'PELA' tabela do model Like
 Course.hasMany(Favorite, { as: 'FavoritesUsers', foreignKey: 'course_id' }) // Um curso pode ter muitos favoritos
 
-Episode.belongsTo(Course) // Um episodio pertence a apenas um curso
+Episode.belongsTo(Course, { as: 'course' }) // Um episodio pertence a apenas um curso
 Episode.belongsToMany(User, { through: WatchTime }) // Associação muitos para muitos THROUGH 'PELA' tabela do model WatchTime
 
 Favorite.belongsTo(Course) // Um favorito pertence a apenas um curso

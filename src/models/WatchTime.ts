@@ -7,7 +7,9 @@ export interface WatchTimeAttributes {
     episodeId: number
 }
 
-export interface WatchTimeInstance extends Model<WatchTimeAttributes>, WatchTimeAttributes { }
+export interface WatchTimeInstance extends Model<WatchTimeAttributes>, WatchTimeAttributes {
+    updatedAt?: Date
+ }
 
 export const WatchTime = sequelize.define<WatchTimeInstance, WatchTimeAttributes>('WatchTime', {
     seconds: {
