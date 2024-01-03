@@ -44,6 +44,18 @@ export const userService = {
         return user
     },
 
+    update: async (id: number, attributes: {
+        firstName: string,
+        lastName: string,
+        phone: string,
+        birth: Date,
+        email: string
+    }) => {
+        const [affectedRows, updatedUsers] = await User.update(attributes, { where: { id: id }, returning: true })
+        
+        return updatedUsers[0]
+    },
+
     getKeepWatchingList: async (id: number) => {
         const userWithWatchingEpisodes = await User.findByPk(id, {
             // Uitilizar include para pré carregar uma associação, que neste caso é a associação de muitos para muitos Episodes pela tabela WatchTime
