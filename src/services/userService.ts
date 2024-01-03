@@ -51,7 +51,20 @@ export const userService = {
         birth: Date,
         email: string
     }) => {
-        const [affectedRows, updatedUsers] = await User.update(attributes, { where: { id: id }, returning: true })
+        const [affectedRows, updatedUsers] = await User.update(attributes, { 
+            where: { id: id }, 
+            returning: true
+        })
+        
+        return updatedUsers[0]
+    },
+
+    updatePassword: async (id: number, password: string) => {
+        const [affectedRows, updatedUsers] = await User.update({ password }, { 
+            where: { id: id }, 
+            returning: true,
+            individualHooks: true   // Importante para executar todos os hooks individuais criados necessários, como por exemplo o de criptografia de senha
+        })
         
         return updatedUsers[0]
     },

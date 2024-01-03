@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { userService } from "../services/userService"
-import { error } from "console"
 import { jwtService } from "../services/jwtService"
 
 export const authController = {
@@ -46,10 +45,10 @@ export const authController = {
 
             user.checkPassword(password, (error, isSame) => {
                 if (error) {
-                    return res.status(400).json({ mmessage: error.message })
+                    return res.status(400).json({ message: error.message })
                 }
                 if (!isSame) {
-                    return res.status(401).json({ mmessage: 'Senha incorreta.' })
+                    return res.status(401).json({ message: 'Senha incorreta.' })
                 }
 
                 const payload = {

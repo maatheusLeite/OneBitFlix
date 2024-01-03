@@ -86,7 +86,6 @@ export const User = sequelize.define<UserInstance, User>('User', {
 
 // Criando um metodo com o prototype, o mesmo é adicionado a todas as instancias de User
 User.prototype.checkPassword = function (password: string, callbackFunction: CheckPasswordCallback) {
-    
     // decodifica a senha do banco de dados para compara-la com a outra
     bcrypt.compare(password, this.password, (error, isSame) => {
         if (error) {
