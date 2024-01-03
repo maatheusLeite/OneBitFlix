@@ -1,6 +1,8 @@
 import { Response } from "express"
 import fs from "fs"
 import path from "path"
+import { WatchTimeAttributes } from "../models/WatchTime"
+import { WatchTime } from "../models"
 
 export const episodeService = {
     streamEpisodeToResponse: (res: Response, videoUrl: string, range: string | undefined) => {
@@ -43,5 +45,44 @@ export const episodeService = {
 
             fs.createReadStream(filePath).pipe(res)
         }
+    },
+
+    getWatchTime: async (userId: number, episodeId: number) => {
+        const watchTime = await WatchTime.findOne({
+            attributes: ['seconds'],
+            where: {
+                userId: userId,
+                episodeId: episodeId
+            }
+        })
+
+        return watchTime
+    },
+
+    setWatchTime: async (attributes: WatchTimeAttributes) => { /* Usa os atributos que compõem a interface WatchTimeAttributes */ 
+        const watchTimeAlreadyExists = await WatchTime.findOne({
+            where: {
+                userId: attributes.userId,
+                episodeId: attributes.episodeId
+            }
+        })
+
+        if (watchTimeAlreadyExists) {
+            // Caso o watchTime já exista, ele apenas é atualizado e salvo no banco de dados
+            watchTimeAlreadyExists.seconds = attributes.seconds
+            await watchTimeAlreadyExists.save()
+            
+            return watchTimeAlreadyExists
+        }
+        else {
+            // Caso ainda não exista, ele é criado e salvo no banco de dados
+            const watchTime = await WatchTime.create({
+                userId: attributes.userId,
+                episodeId: attributes.episodeId,
+                seconds: attributes.seconds
+            })
+
+            return watchTime
+        }        
     }
 }
