@@ -1,9 +1,12 @@
 import express from "express"
-import { sequelize } from "./database"
+import cors from "cors"
 import { adminJs, adminJsRouter } from "./adminjs"
+import { sequelize } from "./database"
 import { router } from "./routes"
 
 const app = express()
+
+app.use(cors()) // Permite que a API receba requisições de origens diferentes
 
 app.use(express.static('public'))
 
