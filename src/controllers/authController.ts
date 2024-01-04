@@ -3,6 +3,7 @@ import { userService } from "../services/userService"
 import { jwtService } from "../services/jwtService"
 
 export const authController = {
+    // POST /auth/register
     register: async (req: Request, res: Response) => {
         const { firstName, lastName, email, password, phone, birth } = req.body
 
@@ -55,10 +56,9 @@ export const authController = {
                     id: user.id,
                     firstName: user.firstName,
                     email: user.email
-                    // Incluir apenas o essencial no payload
                 }
 
-                const token = jwtService.signToken(payload, '1d')  // Token expira em 1 dia, ou seja 1d
+                const token = jwtService.signToken(payload, '1d')
 
                 return res.json({ authenticated: true, ...payload, token })
             }) 

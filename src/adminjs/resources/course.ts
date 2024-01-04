@@ -4,14 +4,14 @@ import path from "path";
 
 export const courseResourceOptions: ResourceOptions = {
     navigation: 'Catálogo',
-    editProperties: [ // Propriedades editaveis
+    editProperties: [
       'name', 
       'synopsis', 
       'uploadThumbnail', 
       'featured', 
       'categoryId'
     ],
-    filterProperties: [ // Propriedades filtraveis
+    filterProperties: [
       'name', 
       'synopsis', 
       'featured', 
@@ -19,13 +19,13 @@ export const courseResourceOptions: ResourceOptions = {
       'createdAt', 
       'updatedAt'
     ],
-    listProperties: [ // Propriedades listaveis
+    listProperties: [
       'id', 
       'name', 
       'featured', 
       'categoryId'
     ],
-    showProperties: [ // Propriedades que podem ser mostradas
+    showProperties: [
       'id', 
       'name', 
       'synopsis', 

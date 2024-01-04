@@ -8,6 +8,6 @@ export const sequelize = new Sequelize({
     username: 'developer',
     password: '@Dev1234',
     define: {
-        underscored: true // Configura o banco de dados para trabalhar com snake_case
+        underscored: true
     }
 })

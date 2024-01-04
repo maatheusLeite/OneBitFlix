@@ -2,7 +2,6 @@ import { User } from "../models"
 import { EpisodeInstance } from "../models/Episode"
 import { UserCreationAttributes } from "../models/User"
 
-// Filtra apenas os ultimos episódios, ou seja, os vistos mais recentemente em cada curso
 function filterLastEpisodesByCourse(episodes: EpisodeInstance[]) {
     const coursesOnList: number[] = []
 
@@ -63,7 +62,7 @@ export const userService = {
         const [affectedRows, updatedUsers] = await User.update({ password }, { 
             where: { id: id }, 
             returning: true,
-            individualHooks: true   // Importante para executar todos os hooks individuais criados necessários, como por exemplo o de criptografia de senha
+            individualHooks: true
         })
         
         return updatedUsers[0]
@@ -71,9 +70,8 @@ export const userService = {
 
     getKeepWatchingList: async (id: number) => {
         const userWithWatchingEpisodes = await User.findByPk(id, {
-            // Uitilizar include para pré carregar uma associação, que neste caso é a associação de muitos para muitos Episodes pela tabela WatchTime
             include: {
-                association: 'Episodes',  // Inclui os episódios por meio da associação com WatchTime
+                association: 'Episodes',
                 attributes: [
                     'id',
                     'name',
@@ -84,7 +82,7 @@ export const userService = {
                     ['course_id', 'courseId']
                 ],
                 include: [{
-                    association: 'course',   // Pega as informações do curso do episódio individual acima, para cada episódio retornado
+                    association: 'course',
                     attributes: [
                         'id',
                         'name',
@@ -93,7 +91,7 @@ export const userService = {
                     ]
                 }],
                 through: {
-                    as: 'watchTime', // Associação feita por meio da tabela watchTime
+                    as: 'watchTime',
                     attributes:[
                         'seconds',
                         ['updated_at', 'updatedAt']

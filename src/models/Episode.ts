@@ -2,7 +2,6 @@ import { DataTypes, Optional, Model } from "sequelize";
 import { sequelize } from "../database";
 import { WatchTimeInstance } from "./WatchTime";
 
-// Interface para o objeto simples contendo seus atributos
 export interface Episode {
     id: number,
     name: string,
@@ -13,17 +12,11 @@ export interface Episode {
     courseId: number
 }
 
-// Atributos opcionais
 export interface EpisodeCreationAttributes extends Optional<Episode, 'id' | 'videoUrl' | 'secondsLong'> { }
-// Para tornar o atributo id opcional na criação da Episode, sendo assim, o banco conseguirá
-// adiciona-lo de forma automatica após a criação da Episode
-
-// Interface para instancia de fato
 export interface EpisodeInstance extends Model<Episode, EpisodeCreationAttributes>, Episode { 
     watchTime?: WatchTimeInstance
 }
 
-// Definição do model
 export const Episode = sequelize.define<EpisodeInstance, Episode>('Episode', {
     id: {
         allowNull: false,

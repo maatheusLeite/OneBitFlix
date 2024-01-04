@@ -3,18 +3,17 @@ import { User } from "../models"
 import bcrypt from 'bcrypt'
 
 export const authenticationOptions: AuthenticationOptions = {
-    authenticate: async (email, password) => { // pega o email e senha do formulário utilizado para realizar login
+    authenticate: async (email, password) => {
         const user = await User.findOne({ where: { email: email } })
 
         if (user && user.role === 'admin') {
             const matched = await bcrypt.compare(password, user.password)
 
-            if (matched) {  // Caso a autenticação seja valida, retorna o user
+            if (matched) {
                 return user
             }
         }
 
-        // Caso a autenticação não seja valida, retorna false
         return false
     },
     cookiePassword: 'senha-de-cookie'

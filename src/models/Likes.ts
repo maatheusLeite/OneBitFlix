@@ -11,7 +11,7 @@ export interface LikeInstance extends Model<Like>, Like { }
 export const Like = sequelize.define<LikeInstance, Like>('Like', {
     userId: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta por dois campos da tabela, userId e courseId
+        primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
             model: 'users',
@@ -22,7 +22,7 @@ export const Like = sequelize.define<LikeInstance, Like>('Like', {
     },
     courseId: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta por dois campos da tabela, userId e courseId
+        primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
             model: 'courses',

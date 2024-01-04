@@ -3,7 +3,7 @@ import { categoryService } from "../services/categoryService"
 import { getPaginationParams } from "../helpers/getPaginationParams"
 
 export const categoriesController = {
-    // GET /categorie
+    // GET /categories
     index: async (req: Request, res: Response) => {
         const [page, perPage] = getPaginationParams(req.query)
 
@@ -13,7 +13,7 @@ export const categoriesController = {
             return res.json(paginatedCategories)
         }
         catch (error) {
-            if (error instanceof Error) { // caso o error seja uma instancia de Error, do javascript
+            if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
             }
         }
@@ -28,7 +28,7 @@ export const categoriesController = {
             return res.json(category)
         }
         catch (error) {
-            if (error instanceof Error) { // caso o error seja uma instancia de Error, do javascript
+            if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
             }
         }

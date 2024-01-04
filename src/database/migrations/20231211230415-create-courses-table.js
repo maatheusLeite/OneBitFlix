@@ -27,9 +27,9 @@ module.exports = {
       category_id: { // Foreign Key
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
-        references: { model: 'categories', key: 'id' }, // Tabela e campo de referencias para a FK
-        onUpdate: 'CASCADE', // Atualizações refletem automaticamente na tabela de cursos
-        onDelete: 'RESTRICT' // Não permite que uma categoria que contem algum curso seja excluida
+        references: { model: 'categories', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'RESTRICT'
       },
       created_at: {
         allowNull: false,

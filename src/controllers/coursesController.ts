@@ -13,7 +13,7 @@ export const coursesController = {
             return res.json(featuredCourses)
         }
         catch (error) {
-            if (error instanceof Error) { // caso o error seja uma instancia de Error, do javascript
+            if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
             }
         }
@@ -58,7 +58,7 @@ export const coursesController = {
             return res.json(courses)
         }
         catch (error) {
-            if (error instanceof Error) { // caso o error seja uma instancia de Error, do javascript
+            if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
             }
         }
@@ -78,10 +78,10 @@ export const coursesController = {
 
             const liked = await likeService.isLiked(userId, Number(courseId))
             const favorited = await favoriteService.isFavorited(userId, Number(courseId))
-            return res.json({ ...course.get(), liked, favorited }) // ...course.get() desestrutura o couse, o get() serve para retornar apenas as colunas de dados do banco salvos no json, e não seus metodos
+            return res.json({ ...course.get(), liked, favorited })
         }
         catch (error) {
-            if (error instanceof Error) { // caso o error seja uma instancia de Error, do javascript
+            if (error instanceof Error) {
                 return res.status(400).json({ message: error.message })
             }
         }

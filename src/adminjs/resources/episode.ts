@@ -4,7 +4,7 @@ import path from "path";
 
 export const episodeResourceOptions: ResourceOptions = {
     navigation: 'Catálogo',
-    editProperties: [   // Propriedades editaveis
+    editProperties: [
         'name', 
         'synopsis', 
         'courseId', 
@@ -12,7 +12,7 @@ export const episodeResourceOptions: ResourceOptions = {
         'uploadVideo', 
         'secondsLong'
     ],
-    filterProperties: [ // Propriedades filtraveis
+    filterProperties: [
         'name', 
         'synopsis', 
         'courseId', 
@@ -20,14 +20,14 @@ export const episodeResourceOptions: ResourceOptions = {
         'createdAt', 
         'updatedAt'
     ], 
-    listProperties: [   // Propriedades listaveis
+    listProperties: [
         'id', 
         'name', 
         'courseId', 
         'order', 
         'secondsLong'
     ], 
-    showProperties: [   // Propriedades que podem ser mostradas
+    showProperties: [
         'id', 
         'name', 
         'synopsis', 
@@ -42,16 +42,14 @@ export const episodeResourceOptions: ResourceOptions = {
 
 export const episodeResourceFeatures: FeatureType[] = [
     uploadFileFeature({
-        // UPLOAD OPTIONS
-        provider: { // Provider pode ser local, AWS, googleCloud, etc...
+        provider: {
             local: {
                 bucket: path.join(__dirname, '..', '..', '..', 'uploads')
             }
         },
         properties: {
-            key: 'videoUrl',    // coluna de referencia da url do video salvo, no banco de dados
-            file: 'uploadVideo' // input onde vai ser feito o envio do formulário do video no adminjs
-                                // basicamente, está lincando o campo uploadVideo do editProperties acima com a coluna video_url do banco de dados
+            key: 'videoUrl',
+            file: 'uploadVideo'          
         },
         uploadPath: (record, fileName) => `videos/course-${record.get('courseId')}/${fileName}`
     })

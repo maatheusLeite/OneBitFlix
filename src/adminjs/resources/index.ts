@@ -7,8 +7,8 @@ import { userResourceOptions } from "./user";
 
 export const adminJsResources: ResourceWithOptions[] = [
     {
-        resource: Category, // model
-        options: categoryResourceOptions // opções de como gerenciar o model
+        resource: Category,
+        options: categoryResourceOptions
     },
     {
         resource: Course,

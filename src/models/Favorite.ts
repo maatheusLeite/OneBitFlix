@@ -16,7 +16,7 @@ export interface FavoriteInstance extends Model<Favorite>, Favorite {
 export const Favorite = sequelize.define<FavoriteInstance, Favorite>('Favorite', {
     userId: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta por dois campos da tabela, userId e courseId
+        primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
             model: 'users',
@@ -27,7 +27,7 @@ export const Favorite = sequelize.define<FavoriteInstance, Favorite>('Favorite',
     },
     courseId: {
         allowNull: false,
-        primaryKey: true, // Chave primária composta por dois campos da tabela, userId e courseId
+        primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
             model: 'courses',

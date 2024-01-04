@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const secret = 'chave-do-jwt' // base da decodificação da senha. NÃO DEIXAR EXPOSTO NO CODIGO SALVO EM REPOSITÓRIOS 
+const secret = 'chave-do-jwt'
 
 export const jwtService = {
     signToken: (payload: string | object | Buffer, expiration: string) => {

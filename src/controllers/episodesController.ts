@@ -4,7 +4,6 @@ import { AuthenticatedRequest } from "../middlewares/auth"
 
 export const episodesController = {
     // GET /episodes/stream?videoUrl=
-
     stream: async (req: Request, res: Response) => {
         const { videoUrl } = req.query
         
@@ -13,7 +12,7 @@ export const episodesController = {
                 throw new Error('videoUrl param must be of type string')
             }
             
-            const range = req.headers.range // vem como: bytes=0-1024
+            const range = req.headers.range
 
             episodeService.streamEpisodeToResponse(res, videoUrl, range)
         } 
@@ -25,9 +24,9 @@ export const episodesController = {
     },
 
     // GET /episodes/:id/watchTime
-    getWatchTime: async (req: AuthenticatedRequest, res: Response) => { // AuthRequest serve apenas para pegar o ID do usuário autenticado de maneira mais simples pela propria requisição
-        const userId = req.user!.id // id do usuário logado passado no header da requisição pelo jwt
-        const episodeId = req.params.id // id do episodio passado na url da requisição
+    getWatchTime: async (req: AuthenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+        const episodeId = req.params.id
     
         try {
             const watchTime = await episodeService.getWatchTime(userId, Number(episodeId))    
@@ -41,14 +40,13 @@ export const episodesController = {
     },
 
     // POST /episodes/:id/watchTime
-    setWatchTime: async (req: AuthenticatedRequest, res: Response) => { // AuthRequest serve apenas para pegar o ID do usuário autenticado de maneira mais simples pela propria requisição
-        const userId = req.user!.id // id do usuário logado passado no header da requisição pelo jwt
-        const episodeId = req.params.id // id do episodio passado na url da requisição
-        const { seconds } = req.body // segundos do episodio passados no body da requisição
+    setWatchTime: async (req: AuthenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+        const episodeId = req.params.id
+        const { seconds } = req.body
     
         try {
             const watchTime = await episodeService.setWatchTime({
-                // parametros passados como objeto pois neste metodo é passado como parametro um ojeto que cumpre contrato com a interface WatchTimeAttributes
                 userId: userId,
                 episodeId: Number(episodeId),
                 seconds: seconds

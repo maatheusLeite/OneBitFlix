@@ -3,7 +3,7 @@ import { H1, H2, Table, TableHead, TableRow, TableCell, TableBody } from '@admin
 import { ApiClient, useCurrentAdmin } from 'adminjs'
 
 export default function Dashboard() {
-    const [resources, setResources] = useState<{ [key: string]: number }>() // entre <> temos um objeto que recebe uma chave: string, que possui um valor: nuber, ou seja, um objeto chave valor como em um map
+    const [resources, setResources] = useState<{ [key: string]: number }>()
     const [currentAdmin] = useCurrentAdmin()
     const api = new ApiClient()
 
@@ -12,13 +12,13 @@ export default function Dashboard() {
     }, [])
 
     async function fetchDashboardData() {
-        const res = await api.getDashboard() // se baseia na função handlear do dashboard no arquivo adminjs/index.ts
+        const res = await api.getDashboard()
         setResources(res.data)
     }
 
     return (
         <section style={{ padding: '1.15rem' }}>
-            <H1> Seja bem vindo(a), { currentAdmin?.firstName } </H1> // Caso o admin exista, printa seu primeiro nome
+            <H1> Seja bem vindo(a), { currentAdmin?.firstName } </H1>
 
             <section style={{ backgroundColor: '#FFF', padding: '1.5rem' }}>
                 <H2>Resumo</H2>

@@ -6,24 +6,24 @@ import { Like } from "./Likes";
 import { User } from "./User";
 import { WatchTime } from "./WatchTime";
 
-Category.hasMany(Course, { as: 'courses' }) // Uma categoria possui muitos cursos. o AS, por padrão é o nome com a primeira letra maiuscula do model em plural, ou seja Courses
-Course.belongsTo(Category) // Um curso pertence a apenas uma categoria
+Category.hasMany(Course, { as: 'courses' })
+Course.belongsTo(Category)
 
-Course.hasMany(Episode, { as: 'episodes' }) // Um curso possui muitos episodios
-Course.belongsToMany(User, { through: Favorite }) // Associação muitos para muitos THROUGH 'PELA' tabela do model Favorite
-Course.belongsToMany(User, { through: Like }) // Associação muitos para muitos THROUGH 'PELA' tabela do model Like
-Course.hasMany(Favorite, { as: 'FavoritesUsers', foreignKey: 'course_id' }) // Um curso pode ter muitos favoritos
+Course.hasMany(Episode, { as: 'episodes' })
+Course.belongsToMany(User, { through: Favorite })
+Course.belongsToMany(User, { through: Like })
+Course.hasMany(Favorite, { as: 'FavoritesUsers', foreignKey: 'course_id' })
 
-Episode.belongsTo(Course, { as: 'course' }) // Um episodio pertence a apenas um curso
-Episode.belongsToMany(User, { through: WatchTime }) // Associação muitos para muitos THROUGH 'PELA' tabela do model WatchTime
+Episode.belongsTo(Course, { as: 'course' })
+Episode.belongsToMany(User, { through: WatchTime })
 
-Favorite.belongsTo(Course) // Um favorito pertence a apenas um curso
-Favorite.belongsTo(User) // Um favorito pertence a apenas um usuário
+Favorite.belongsTo(Course)
+Favorite.belongsTo(User)
 
-User.belongsToMany(Course, { through: Favorite }) // Associação muitos para muitos THROUGH 'PELA' tabela do model Favorite
-User.belongsToMany(Course, { through: Like }) // Associação muitos para muitos THROUGH 'PELA' tabela do model Like
-User.belongsToMany(Episode, { through: WatchTime }) // Associação muitos para muitos THROUGH 'PELA' tabela do model WatchTime
-User.hasMany(Favorite, { as: 'FavoritesCourses', foreignKey: 'user_id' }) // Um usuário pode ter muitos favoritos
+User.belongsToMany(Course, { through: Favorite })
+User.belongsToMany(Course, { through: Like })
+User.belongsToMany(Episode, { through: WatchTime })
+User.hasMany(Favorite, { as: 'FavoritesCourses', foreignKey: 'user_id' })
 
 export {
     Category,

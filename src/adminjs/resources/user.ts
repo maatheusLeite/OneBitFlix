@@ -6,10 +6,10 @@ export const userResourceOptions: ResourceOptions = {
     navigation: 'Administração',
     properties: {
         birth: {
-            type: 'date' // Troca o tipo do input no front-end 
+            type: 'date'
         },
         password: {
-            type: 'password' // Troca o tipo do input no front-end
+            type: 'password'
         },
         role: {
             availableValues: [
@@ -18,7 +18,7 @@ export const userResourceOptions: ResourceOptions = {
             ]
         }
     },
-    editProperties: [   // Propriedades editaveis
+    editProperties: [
         'firstName', 
         'lastName', 
         'phone', 
@@ -27,7 +27,7 @@ export const userResourceOptions: ResourceOptions = {
         'password',
         'role'
     ],
-    filterProperties: [ // Propriedades filtraveis
+    filterProperties: [
         'firstName', 
         'lastName', 
         'phone', 
@@ -37,13 +37,13 @@ export const userResourceOptions: ResourceOptions = {
         'createdAt',
         'updatedAt'
     ],
-    listProperties: [    // Propriedades listaveis
+    listProperties: [
         'id', 
         'firstName', 
         'email', 
         'role'
     ],
-    showProperties: [   // Propriedades que podem ser mostradas
+    showProperties: [
         'id', 
         'firstName', 
         'lastName', 

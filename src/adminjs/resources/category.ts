@@ -2,21 +2,21 @@ import { ResourceOptions } from "adminjs";
 
 export const categoryResourceOptions: ResourceOptions = {
     navigation: 'Catálogo',
-    editProperties: [   // Propriedades editaveis
+    editProperties: [
         'name', 
         'position'
     ], 
-    filterProperties: [ // Propriedades filtraveis
+    filterProperties: [
         'name', 
         'position', 
         'createdAt', 
         'updatedAt'
     ], 
-    listProperties: [   // Propriedades listaveis
+    listProperties: [
         'id', 
         'name', 
         'position'], 
-    showProperties: [   // Propriedades que podem ser mostradas
+    showProperties: [
         'id', 
         'name', 
         'position', 

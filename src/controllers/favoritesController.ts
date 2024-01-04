@@ -5,7 +5,7 @@ import { favoriteService } from "../services/favoriteService"
 export const favoritesController = {
     // GET /favorites
     index: async (req: AuthenticatedRequest, res: Response) => {
-        const userId = req.user!.id // Pega o user autenticado pelo header da requisição
+        const userId = req.user!.id
 
         try {
             const favorites = await favoriteService.findByUserId(userId)    
@@ -20,7 +20,7 @@ export const favoritesController = {
 
     // POST /favorites
     save: async (req: AuthenticatedRequest, res: Response) => {
-        const userId = req.user!.id // Pega o user autenticado pelo header da requisição
+        const userId = req.user!.id
         const { courseId } = req.body
 
         try {
@@ -36,7 +36,7 @@ export const favoritesController = {
 
     // DELETE /favorites/:id
     delete: async (req: AuthenticatedRequest, res: Response) => {
-        const userId = req.user!.id // Pega o user autenticado pelo header da requisição
+        const userId = req.user!.id
         const courseId = req.params.id
 
         try {
